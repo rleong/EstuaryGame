@@ -12,12 +12,12 @@ public class Template extends GameObject{
 	double theta=Math.PI/2;
 	public Template(double x, double y, ObjectId id) {
 		super(x, y, id);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
 	public void tick(LinkedList<GameObject> object) {
-		// TODO Auto-generated method stub
+		
 		
 		double sy = 5*Math.sin(theta);
 		theta+=0.1;
@@ -27,14 +27,14 @@ public class Template extends GameObject{
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
+		
 		g.setColor(Color.RED);
 		g.fillRect((int)x, (int)y, 30, 30);
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
