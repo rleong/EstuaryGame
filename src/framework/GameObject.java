@@ -44,10 +44,10 @@ public abstract class GameObject {
 	}
 	
 	public void setVelX(double x) {
-		this.velX = velX;
+		this.velX = x;
 	}
 	public void setVelY(double y) {
-		this.velY = velY;
+		this.velY = y;
 	}
 	
 	public ObjectId getId() {

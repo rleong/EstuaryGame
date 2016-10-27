@@ -21,6 +21,6 @@ public class Window {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		game.start(frame);
+		game.start();
 	}
 }

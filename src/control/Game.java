@@ -5,8 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import javax.swing.JFrame;
-
+import framework.ObjectId;
+import object.Templet;
+import window.Handler;
 import window.Window;
 
 public class Game extends Canvas implements Runnable{
@@ -18,18 +19,29 @@ public class Game extends Canvas implements Runnable{
 	
 	private boolean running = false;
 	private Thread thread;
-	JFrame frame;
 	
-	public synchronized void start(JFrame gameFrame){
+	//Object
+	Handler handler;
+	
+	
+	 
+	private void init(){
+		handler = new Handler();
+		
+		handler.addObject(new Templet(250,250,ObjectId.templet));
+	}
+	public synchronized void start(){
 		if(running)
 			return;
-		frame = gameFrame;
+		
 		running = true;
 		thread = new Thread(this);
 		thread.start();
 	}
 	@Override
 	public void run() {
+		
+		init();
 		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
@@ -52,7 +64,7 @@ public class Game extends Canvas implements Runnable{
 					
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				//System.out.println("FPS: " + frames + " TICKS: " + updates);
+				System.out.println("FPS: " + frames + " TICKS: " + updates);
 				frames = 0;
 				updates = 0;
 			}
@@ -60,7 +72,7 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	private void tick(){
-		
+		handler.tick();
 	}
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();
@@ -70,9 +82,14 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		//Drow here
+		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
+		
+		handler.render(g);
+		//
 		g.dispose();
 		bs.show();
 	}
