@@ -8,9 +8,9 @@ import java.util.LinkedList;
 import framework.GameObject;
 import framework.ObjectId;
 
-public class Templet extends GameObject{
+public class Template extends GameObject{
 	double theta=Math.PI/2;
-	public Templet(double x, double y, ObjectId id) {
+	public Template(double x, double y, ObjectId id) {
 		super(x, y, id);
 		// TODO Auto-generated constructor stub
 	}

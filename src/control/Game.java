@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import framework.ObjectId;
-import object.Templet;
+import object.Template;
 import window.Handler;
 import window.Window;
 
@@ -28,7 +28,7 @@ public class Game extends Canvas implements Runnable{
 	private void init(){
 		handler = new Handler();
 		
-		handler.addObject(new Templet(250,250,ObjectId.templet));
+		handler.addObject(new Template(250,250,ObjectId.templet));
 	}
 	public synchronized void start(){
 		if(running)
