@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+import framework.KeyInput;
 import framework.ObjectId;
-import object.Template;
+import object.Critter;
+import object.Trash;
 import window.Handler;
 import window.Window;
 
@@ -27,8 +29,11 @@ public class Game extends Canvas implements Runnable{
 	 
 	private void init(){
 		handler = new Handler();
+		handler.creatSurface();
+		handler.addObject(new Critter(250,250,ObjectId.critter, false, false,handler));
+		handler.addObject(new Trash(125, 125, ObjectId.trash));
 		
-		handler.addObject(new Template(250,250,ObjectId.templet));
+		this.addKeyListener(new KeyInput(handler));
 	}
 	public synchronized void start(){
 		if(running)
@@ -64,7 +69,7 @@ public class Game extends Canvas implements Runnable{
 					
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				System.out.println("FPS: " + frames + " TICKS: " + updates);
+//				System.out.println("FPS: " + frames + " TICKS: " + updates);
 				frames = 0;
 				updates = 0;
 			}

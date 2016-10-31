@@ -8,6 +8,8 @@ public abstract class GameObject {
 	protected ObjectId id;
 	protected double x,y;
 	protected double velX = 0, velY = 0;
+	protected boolean falling=true;
+	protected double gravity =0.05f;
 	
 	public GameObject(double x, double y, ObjectId id) {
 		this.x = x;
@@ -52,6 +54,18 @@ public abstract class GameObject {
 	
 	public ObjectId getId() {
 		return id;
+	}
+	
+	public void setGravity(double gravity){
+		this.gravity=gravity;
+	}
+	
+	public double getGravity(){
+		return this.gravity;
+	}
+	
+	public void setFalling(boolean b){
+		this.falling=b;
 	}
 
 }
