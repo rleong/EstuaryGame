@@ -124,7 +124,7 @@ public class Critter extends GameObject {
 			GameObject temp = handler.object.get(i);
 			if(temp.getId() == ObjectId.landSurface){
 				if(getBoundsBottom().intersects(temp.getBounds())){
-					setY(temp.getY()-30);
+					setY(temp.getY()-32);
 					
 					setVelY(0);
 					falling=false;

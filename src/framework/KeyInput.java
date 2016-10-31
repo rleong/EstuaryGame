@@ -16,7 +16,6 @@ public class KeyInput extends KeyAdapter {
 	
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
-		
 		for(int i=0;i<handler.object.size();i++){
 			GameObject temp = handler.object.get(i);
 			
@@ -37,9 +36,6 @@ public class KeyInput extends KeyAdapter {
 			}
 			
 		}
-		
-		
-		
 		if(key == KeyEvent.VK_ESCAPE){
 			System.exit(1);
 		}
