@@ -8,7 +8,10 @@ import java.awt.image.BufferStrategy;
 import framework.KeyInput;
 import framework.ObjectId;
 import object.Critter;
+import object.Runoff;
 import object.Trash;
+import object.TrashBin;
+import object.Tree;
 import window.Handler;
 import window.Window;
 
@@ -24,15 +27,21 @@ public class Game extends Canvas implements Runnable{
 	
 	//Object
 	Handler handler;
-	
+	TrashBin trashBin=new TrashBin(550, 550, ObjectId.trashBin,handler);
 	
 	 
 	private void init(){
+		
 		handler = new Handler();
 		handler.creatSurface();
-		handler.addObject(new Critter(250,250,ObjectId.critter, false, false,handler));
-		handler.addObject(new Trash(125, 125, ObjectId.trash));
+		handler.addObject(trashBin);
 		
+		handler.addObject(new Trash(125, 125, ObjectId.trash,trashBin));
+		handler.addObject(new Runoff(0,400,ObjectId.runOff));
+		handler.addObject(new Runoff(50,400,ObjectId.runOff));
+		handler.addObject(new Runoff(-50,400,ObjectId.runOff));
+		
+		handler.addObject(new Critter(250,250,ObjectId.critter, false, false,handler));
 		this.addKeyListener(new KeyInput(handler));
 	}
 	public synchronized void start(){
@@ -101,7 +110,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String args[]){
 		Game game = new Game();
-		new Window(500,500,"Estuary",game);
+		new Window(600,600,"Estuary",game);
 	}
 	
 }

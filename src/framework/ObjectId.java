@@ -25,5 +25,9 @@ public enum ObjectId {
 	waves(),
 	
 	//critter
-	critter();
+	critter(),
+	
+	//
+	trashBin(),
+	tree();
 }

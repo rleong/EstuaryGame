@@ -68,6 +68,9 @@ public class KeyInput extends KeyAdapter {
 				if(key== KeyEvent.VK_I){
 					t.changeCharacter();
 				}
+				if(key==KeyEvent.VK_P){
+					t.planT();
+				}
 				
 			}
 			

@@ -105,6 +105,10 @@ public class Critter extends GameObject {
 	public void collect(){
 		
 	}
+	
+	public void planT(){
+		handler.addObject(new Tree(300,100,ObjectId.tree));
+	}
 
 	@Override
 	public void tick(LinkedList<GameObject> object) {
@@ -143,6 +147,8 @@ public class Critter extends GameObject {
 			}
 		}
 	}
+	
+	
 
 	@Override
 	public void render(Graphics g) {

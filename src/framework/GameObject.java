@@ -9,7 +9,8 @@ public abstract class GameObject {
 	protected double x,y;
 	protected double velX = 0, velY = 0;
 	protected boolean falling=true;
-	protected double gravity =0.05f;
+	protected double gravity =0.055f;
+	
 	
 	public GameObject(double x, double y, ObjectId id) {
 		this.x = x;

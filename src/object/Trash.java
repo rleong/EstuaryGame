@@ -13,9 +13,10 @@ public class Trash extends GameObject {
 	double health=20;
 	boolean canAttack=false;
 	
-	public Trash(double x, double y, ObjectId id) {
+	TrashBin trashBin;
+	public Trash(double x, double y, ObjectId id,TrashBin trashBin) {
 		super(x, y, id);
-		// TODO Auto-generated constructor stub
+		this.trashBin=trashBin;
 	}
 	
 	/*
@@ -31,7 +32,7 @@ public class Trash extends GameObject {
 	
 	public void dead(){
 		if(health<=0){
-			setVelX((400-x)/100);
+			setVelX((trashBin.getX()-x)/50);
 			setVelY(-5);
 			
 			canAttack=false;
