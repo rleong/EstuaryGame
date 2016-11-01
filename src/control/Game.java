@@ -37,9 +37,9 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(trashBin);
 		
 		handler.addObject(new Trash(125, 125, ObjectId.trash,trashBin));
-		handler.addObject(new Runoff(0,400,ObjectId.runOff));
-		handler.addObject(new Runoff(50,400,ObjectId.runOff));
-		handler.addObject(new Runoff(-50,400,ObjectId.runOff));
+		handler.addObject(new Runoff(0,500-32,ObjectId.runOff));
+		handler.addObject(new Runoff(50,500-32,ObjectId.runOff));
+		handler.addObject(new Runoff(-50,500-32,ObjectId.runOff));
 		
 		handler.addObject(new Critter(250,250,ObjectId.critter, false, false,handler));
 		this.addKeyListener(new KeyInput(handler));
