@@ -10,6 +10,8 @@ public enum ObjectId {
 	fish(),
 	
 	//environment
+	RofFactory(),
+	
 	land(),
 	landSurface(),
 	
@@ -29,5 +31,7 @@ public enum ObjectId {
 	
 	//
 	trashBin(),
-	tree();
+	tree(), 
+	seaLevel(), 
+	wall();
 }

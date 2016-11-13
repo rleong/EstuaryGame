@@ -1,5 +1,6 @@
 package window;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
@@ -52,10 +53,24 @@ public class Handler {
 		this.object.remove(object);
 	}
 	
-	public void creatSurface(){
-		for(int i=0;i<20;i++){
-			addObject(new LandSurface(i*30, 500, ObjectId.landSurface));
+	public void creatSurface(Dimension dm){
+		int i=0;
+		for(;i<dm.getWidth()*3/4;i+=32){
+			for(double j=dm.getHeight()*3/5;j<dm.getHeight();j+=32){
+				addObject(new LandSurface(i, j, ObjectId.landSurface));
+			}
 			
+		}
+		for(double j=dm.getHeight()*3/5;j<dm.getHeight();j+=32){
+			addObject(new LandSurface(i-32,j,ObjectId.wall));
+		}
+		for(;i<=dm.getWidth();i+=32){
+			for(double j=dm.getHeight()*3/5;j<dm.getHeight()-64;j+=32){
+				addObject(new LandSurface(i,j, ObjectId.seaLevel));
+			}
+			for(double j=dm.getHeight()-96;j<dm.getHeight();j+=32){
+				addObject(new LandSurface(i,j,ObjectId.landSurface));
+			}
 		}
 	}
 }

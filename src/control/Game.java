@@ -2,12 +2,15 @@ package control;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import framework.KeyInput;
 import framework.ObjectId;
 import object.Critter;
+import object.RofFactory;
 import object.Runoff;
 import object.Trash;
 import object.TrashBin;
@@ -22,26 +25,25 @@ public class Game extends Canvas implements Runnable{
 	 */
 	private static final long serialVersionUID = -6771508490304664935L;
 	
+	static Toolkit tk = Toolkit.getDefaultToolkit();
+	static Dimension dm = new Dimension(tk.getScreenSize());
 	private boolean running = false;
 	private Thread thread;
 	
+	int nRof =0;
 	//Object
 	Handler handler;
-	TrashBin trashBin=new TrashBin(550, 550, ObjectId.trashBin,handler);
+	RofFactory factory;
+//	TrashBin trashBin=new TrashBin(550, 550, ObjectId.trashBin,handler);
 	
 	 
 	private void init(){
 		
 		handler = new Handler();
-		handler.creatSurface();
-		handler.addObject(trashBin);
-		
-		handler.addObject(new Trash(125, 125, ObjectId.trash,trashBin));
-		handler.addObject(new Runoff(0,500-32,ObjectId.runOff));
-		handler.addObject(new Runoff(50,500-32,ObjectId.runOff));
-		handler.addObject(new Runoff(-50,500-32,ObjectId.runOff));
-		
-		handler.addObject(new Critter(250,250,ObjectId.critter, false, false,handler));
+		factory=new RofFactory(0,dm.getHeight()*3/5 - 32,ObjectId.RofFactory);
+		handler.creatSurface(dm);
+		handler.addObject(factory);
+		handler.addObject(new Critter(600, dm.getHeight()*3/5 - 32, ObjectId.critter, true, true, handler));
 		this.addKeyListener(new KeyInput(handler));
 	}
 	public synchronized void start(){
@@ -64,6 +66,7 @@ public class Game extends Canvas implements Runnable{
 		long timer = System.currentTimeMillis();
 		int updates = 0;
 		int frames = 0;
+		
 		while(running){
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -81,12 +84,18 @@ public class Game extends Canvas implements Runnable{
 //				System.out.println("FPS: " + frames + " TICKS: " + updates);
 				frames = 0;
 				updates = 0;
+				if(nRof<4){
+					factory.prodRof(handler,dm);
+					nRof+=1;
+				}
 			}
+			
 		}
 		
 	}
 	private void tick(){
 		handler.tick();
+		
 	}
 	private void render(){
 		BufferStrategy bs = this.getBufferStrategy();
@@ -110,7 +119,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String args[]){
 		Game game = new Game();
-		new Window(600,600,"Estuary",game);
+		new Window(dm,"Estuary",game);
 	}
 	
 }

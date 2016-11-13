@@ -21,16 +21,16 @@ public class KeyInput extends KeyAdapter {
 			
 			if(temp.getId() == ObjectId.critter){
 				if(key == KeyEvent.VK_A){
-					temp.setVelX(-3);
+					temp.setVelX(-2);
 				}
 				if(key == KeyEvent.VK_D){
-					temp.setVelX(3);
+					temp.setVelX(2);
 				}
-				if(key == KeyEvent.VK_W){
-					temp.setVelY(-3);
+				if(key == KeyEvent.VK_W && !((Critter)temp).jump){
+					temp.setVelY(-2);
 				}
-				if(key == KeyEvent.VK_S){
-					temp.setVelY(3);
+				if(key == KeyEvent.VK_S && !((Critter)temp).onLand){
+					temp.setVelY(2);
 				}
 				
 			}
@@ -55,7 +55,7 @@ public class KeyInput extends KeyAdapter {
 					temp.setVelX(0);
 				}
 				if(key == KeyEvent.VK_W){
-					temp.setVelY(0);
+					
 				}
 				if(key == KeyEvent.VK_S){
 					temp.setVelY(0);
