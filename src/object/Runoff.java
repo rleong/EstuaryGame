@@ -12,11 +12,12 @@ import window.Handler;
 
 public class Runoff extends GameObject {
 	Handler handler;
-	public Runoff(double x, double y,Dimension dm, Handler handler, ObjectId id) {
+	public int type;
+	public Runoff(double x, double y,Dimension dm, Handler handler, ObjectId id, int type) {
 		super(x, y, id);
 		this.handler=handler;
 		setVelX(1.2);
-		
+		this.type=type;
 	}
 
 	@Override
@@ -30,7 +31,15 @@ public class Runoff extends GameObject {
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.magenta);
+		switch(type){
+		case 0:
+			g.setColor(Color.magenta);
+			break;
+		case 1:
+			g.setColor(Color.white);
+			break;
+		}
+		
 		g.fillRect((int)x, (int)y, 32, 32);
 
 	}
@@ -45,6 +54,16 @@ public class Runoff extends GameObject {
 		for(int i = 0; i < handler.object.size();i++){
 			GameObject temp = handler.object.get(i);
 			if(temp.getId() == ObjectId.landSurface){
+				if(getBounds().intersects(temp.getBounds())){
+					falling=false;
+					velY=0;
+					setY(temp.getY()-32);
+				}
+				else{
+					falling=true;
+				}
+			}
+			if(temp.getId() == ObjectId.Sand){
 				if(getBounds().intersects(temp.getBounds())){
 					falling=false;
 					velY=0;

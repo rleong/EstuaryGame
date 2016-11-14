@@ -12,7 +12,7 @@ public enum ObjectId {
 	//environment
 	RofFactory(),
 	
-	land(),
+	Sand(),
 	landSurface(),
 	
 	water(),
@@ -31,7 +31,9 @@ public enum ObjectId {
 	
 	//
 	trashBin(),
+	waterTree(),
 	tree(), 
 	seaLevel(), 
-	wall();
+	wall(),
+	seed();
 }

@@ -69,7 +69,7 @@ public class Handler {
 				addObject(new LandSurface(i,j, ObjectId.seaLevel));
 			}
 			for(double j=dm.getHeight()-96;j<dm.getHeight();j+=32){
-				addObject(new LandSurface(i,j,ObjectId.landSurface));
+				addObject(new LandSurface(i,j,ObjectId.Sand));
 			}
 		}
 	}

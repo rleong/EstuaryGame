@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import control.Game;
 import framework.GameObject;
 import framework.ObjectId;
 import window.Handler;
@@ -14,6 +15,10 @@ import window.Handler;
 public class Critter extends GameObject {
 	int landCo=1;
 	int waterCo=2;
+	
+	Game game;
+	public int seed1=0;
+	public int seed2=0;
 	boolean xdir;
 	boolean ydir;
 	int character;
@@ -24,11 +29,13 @@ public class Critter extends GameObject {
 	public boolean jump;
 	private Handler handler;
 	public boolean onLand;
+	public boolean inWater;
+	Dimension dm;
 	/*
 	 * Critter constructor
 	 * 
 	 */
-	public Critter(double x, double y, ObjectId id,boolean xdir, boolean ydir,Handler handler) {
+	public Critter(double x, double y, ObjectId id,boolean xdir, boolean ydir,Handler handler, Dimension dm, Game game) {
 		super(x, y, id);
 		this.xdir=xdir;
 		this.ydir=ydir;
@@ -39,6 +46,9 @@ public class Critter extends GameObject {
 		health2=100;
 		this.handler=handler;
 		jump=false;
+		inWater=false;
+		this.dm = dm;
+		this.game=game;
 	}
 	
 	public void setDamage(){
@@ -100,27 +110,39 @@ public class Critter extends GameObject {
 				}
 				
 			}
+			if(temp.getId()==ObjectId.waterTree){
+				WaterTree wt = (WaterTree)temp;
+				if(wt.canAttack){
+					wt.hp-=damage;
+				}
+				if(wt.hp<=0)
+					wt.dead();
+			}
 		}
 	}
 	
-	/*
-	 * collect item
-	 */
-	public void collect(){
-		
-	}
 	
-	public void planT(){
-		handler.addObject(new Tree(x,y,ObjectId.tree));
+	public void planT(int type){
+		handler.addObject(new Tree(x,y,ObjectId.tree,type,game));
 	}
 
 	@Override
 	public void tick(LinkedList<GameObject> object) {
 		x+=velX;
 		y+=velY;
+		if(x>dm.getWidth()*3/4-64){
+			onLand=false;
+			falling=true;
+		}
 		
-		if(falling){
+		if(falling ||(falling && x>dm.getWidth()*3/4)){
 			velY+=gravity;
+		}
+		
+		if(y<dm.getHeight()*3/5-48 && x>dm.getWidth()*3/4-32){
+			setY(dm.getHeight()*3/5-48);
+			setVelY(0);
+			jump=true;
 		}
 		
 		collision(object);
@@ -132,25 +154,30 @@ public class Critter extends GameObject {
 			GameObject temp = handler.object.get(i);
 			if(temp.getId() == ObjectId.landSurface){
 				if(getBoundsBottom().intersects(temp.getBounds())){
-					setY(temp.getY()-32);
+					setY(temp.getY()-31);
 					falling=false;
-					onLand=true;
 					setVelY(0);
+					jump=false;
+					onLand=true;
 					
-				}
-				else{
-					onLand=false;
 				}
 			}
 			if(temp.getId()== ObjectId.seaLevel){
-				if(getBoundsTop().intersects(temp.getBounds())){
+				if(getBoundsSelf().intersects(temp.getBounds())){
 					
-					falling=false;
+					
+					jump = false;
 					
 					
 				}
-				else{
-					falling=true;
+				
+				
+			}
+			if(temp.getId() == ObjectId.Sand){
+				if(getBoundsBottom().intersects(temp.getBounds())){
+					setY(temp.getY()-31);
+					setVelY(0);
+					jump=false;
 				}
 			}
 			if(temp.getId() == ObjectId.trash){
@@ -162,6 +189,26 @@ public class Critter extends GameObject {
 				if(!getBounds().intersects(temp.getBounds())){
 					trash.canAttack=false;
 					//System.out.println("out of range");
+				}
+			}
+			if(temp.getId()==ObjectId.wall){
+				if(getBoundsLeft().intersects(temp.getBounds())){
+					setX(dm.getWidth()*3/4);
+					setVelX(0);
+				}
+			}
+			if(temp.getId()==ObjectId.seed){
+				Seed seed= (Seed)temp;
+				if(getBoundsSelf().intersects(temp.getBounds())){
+					switch(seed.type){
+					case 0:
+						seed1+=1;
+						break;
+					case 1:
+						seed2+=2;
+						break;
+					}
+					object.remove(temp);
 				}
 			}
 		}
@@ -200,9 +247,14 @@ public class Critter extends GameObject {
 	}
 
 	@Override
+	
 	public Rectangle getBounds() {
 		
 		return new Rectangle((int)x-16,(int)y-16, 64,64);
+	}
+	
+	public Rectangle getBoundsSelf(){
+		return new Rectangle((int)x, (int)y, 32,32);
 	}
 	
 	public Rectangle getBoundsTop() {

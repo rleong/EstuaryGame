@@ -25,7 +25,7 @@ public class LandSurface extends GameObject {
 	@Override
 	public void render(Graphics g) {
 		if(id==ObjectId.landSurface){
-			g.setColor(Color.ORANGE);
+			g.setColor(Color.yellow);
 			g.fillRect((int)x, (int)y, 32, 32);
 		}
 		if(id==ObjectId.seaLevel){
@@ -34,6 +34,10 @@ public class LandSurface extends GameObject {
 		}
 		if(id==ObjectId.wall){
 			g.setColor(Color.gray);
+			g.fillRect((int)x, (int)y, 32, 32);
+		}
+		if(id==ObjectId.Sand){
+			g.setColor(Color.ORANGE);
 			g.fillRect((int)x, (int)y, 32, 32);
 		}
 		

@@ -11,10 +11,6 @@ import framework.KeyInput;
 import framework.ObjectId;
 import object.Critter;
 import object.RofFactory;
-import object.Runoff;
-import object.Trash;
-import object.TrashBin;
-import object.Tree;
 import window.Handler;
 import window.Window;
 
@@ -30,7 +26,8 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	private Thread thread;
 	
-	int nRof =0;
+	public int nRof = 0;
+	public int trees = 0;
 	//Object
 	Handler handler;
 	RofFactory factory;
@@ -43,7 +40,7 @@ public class Game extends Canvas implements Runnable{
 		factory=new RofFactory(0,dm.getHeight()*3/5 - 32,ObjectId.RofFactory);
 		handler.creatSurface(dm);
 		handler.addObject(factory);
-		handler.addObject(new Critter(600, dm.getHeight()*3/5 - 32, ObjectId.critter, true, true, handler));
+		handler.addObject(new Critter(600, dm.getHeight()*3/5 - 32, ObjectId.critter, true, true, handler,dm,this));
 		this.addKeyListener(new KeyInput(handler));
 	}
 	public synchronized void start(){
@@ -86,7 +83,9 @@ public class Game extends Canvas implements Runnable{
 				updates = 0;
 				if(nRof<4){
 					factory.prodRof(handler,dm);
+					factory.prodT(handler, dm, trees);
 					nRof+=1;
+					trees+=1;
 				}
 			}
 			

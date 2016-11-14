@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
+import java.util.Random;
 
 import framework.GameObject;
 import framework.ObjectId;
@@ -38,7 +39,17 @@ public class RofFactory extends GameObject {
 	}
 	
 	public void prodRof(Handler handler,Dimension dm){
-		handler.addObject(new Runoff(x, y-32,dm,handler, ObjectId.runOff));
+		int type;
+		Random random=new Random();
+		type=random.nextInt(100)%2;
+		handler.addObject(new Runoff(x, y-32,dm,handler, ObjectId.runOff, type));
+	}
+	public void prodT(Handler handler, Dimension dm, int trees){
+		if(trees<=2){
+			Random random = new Random();
+			int xx=random.nextInt((int) (dm.getWidth()-(dm.getWidth()*3/4)));
+			handler.addObject(new WaterTree(dm.getWidth()*3/4 + xx, dm.getHeight()-192, ObjectId.waterTree, dm, handler));
+		}
 	}
 
 }
