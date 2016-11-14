@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import control.Game;
 import framework.GameObject;
 import framework.ObjectId;
 import window.Handler;
@@ -13,11 +14,17 @@ import window.Handler;
 public class Runoff extends GameObject {
 	Handler handler;
 	public int type;
-	public Runoff(double x, double y,Dimension dm, Handler handler, ObjectId id, int type) {
+	Dimension dm;
+	boolean active;
+	Game game;
+	public Runoff(double x, double y,Dimension dm, Handler handler, ObjectId id, int type,Game game) {
 		super(x, y, id);
 		this.handler=handler;
 		setVelX(1.2);
 		this.type=type;
+		this.dm=dm;
+		active=true;
+		this.game=game;
 	}
 
 	@Override
@@ -26,6 +33,10 @@ public class Runoff extends GameObject {
 			velY+=gravity;
 		x+=velX;
 		y+=velY;
+		if(x>dm.getWidth()+64){
+			x=-32;
+			active=true;
+		}
 		collision(handler.object);
 	}
 
@@ -71,6 +82,17 @@ public class Runoff extends GameObject {
 				}
 				else{
 					falling=true;
+				}
+			}
+			if(temp.getId() == ObjectId.seaLevel){
+				
+				if(getBounds().intersects(temp.getBounds())){
+					System.out.println(1);
+					if(active){
+						game.count+=1;
+						active=false;
+						System.out.println(game.count);
+					}
 				}
 			}
 			

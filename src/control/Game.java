@@ -28,6 +28,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public int nRof = 0;
 	public int trees = 0;
+	public int count= 0;
 	//Object
 	Handler handler;
 	RofFactory factory;
@@ -36,8 +37,8 @@ public class Game extends Canvas implements Runnable{
 	 
 	private void init(){
 		
-		handler = new Handler();
-		factory=new RofFactory(0,dm.getHeight()*3/5 - 32,ObjectId.RofFactory);
+		handler = new Handler(this);
+		factory=new RofFactory(0,dm.getHeight()*3/5 - 32,ObjectId.RofFactory,this);
 		handler.creatSurface(dm);
 		handler.addObject(factory);
 		handler.addObject(new Critter(600, dm.getHeight()*3/5 - 32, ObjectId.critter, true, true, handler,dm,this));
@@ -81,11 +82,15 @@ public class Game extends Canvas implements Runnable{
 //				System.out.println("FPS: " + frames + " TICKS: " + updates);
 				frames = 0;
 				updates = 0;
+				if(trees<=3){
+					factory.prodT(handler, dm);
+					trees+=1;
+				}
 				if(nRof<4){
 					factory.prodRof(handler,dm);
-					factory.prodT(handler, dm, trees);
+					
 					nRof+=1;
-					trees+=1;
+					
 				}
 			}
 			

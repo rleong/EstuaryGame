@@ -26,8 +26,10 @@ public class Seed extends GameObject {
 		switch(type){
 		case 0:
 			g.setColor(Color.green);
+			break;
 		case 1:
 			g.setColor(Color.PINK);
+			break;
 		}
 		g.fillOval((int)x, (int)y, 32, 32);
 		

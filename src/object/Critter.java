@@ -191,6 +191,17 @@ public class Critter extends GameObject {
 					//System.out.println("out of range");
 				}
 			}
+			if(temp.getId() == ObjectId.waterTree){
+				WaterTree tree = (WaterTree)temp;
+				if(getBounds().intersects(temp.getBounds())){
+					tree.canAttack=true;
+					//System.out.println("in range");
+				}
+				if(!getBounds().intersects(temp.getBounds())){
+					tree.canAttack=false;
+					//System.out.println("out of range");
+				}
+			}
 			if(temp.getId()==ObjectId.wall){
 				if(getBoundsLeft().intersects(temp.getBounds())){
 					setX(dm.getWidth()*3/4);
@@ -205,7 +216,7 @@ public class Critter extends GameObject {
 						seed1+=1;
 						break;
 					case 1:
-						seed2+=2;
+						seed2+=1;
 						break;
 					}
 					object.remove(temp);

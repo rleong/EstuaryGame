@@ -6,14 +6,15 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import control.Game;
 import framework.GameObject;
 import framework.ObjectId;
 
 public class LandSurface extends GameObject {
-
-	public LandSurface(double x, double y, ObjectId id) {
+	Game game;
+	public LandSurface(double x, double y, ObjectId id, Game game) {
 		super(x, y, id);
-		
+		this.game=game;
 	}
 
 	@Override
@@ -29,8 +30,30 @@ public class LandSurface extends GameObject {
 			g.fillRect((int)x, (int)y, 32, 32);
 		}
 		if(id==ObjectId.seaLevel){
-			g.setColor(Color.CYAN);
-			g.fillRect((int)x, (int)y, 32, 32);
+			switch(game.count){
+			case 0:
+				g.setColor(Color.CYAN);
+				g.fillRect((int)x, (int)y, 32, 32);
+				break;
+			case 1:
+				g.setColor(Color.blue);
+				g.fillRect((int)x, (int)y, 32, 32);
+				break;
+			case 2:
+				g.setColor(Color.green);
+				g.fillRect((int)x, (int)y, 32, 32);
+				break;
+			case 3:
+				g.setColor(Color.darkGray);
+				g.fillRect((int)x, (int)y, 32, 32);
+				break;
+			default:
+				g.setColor(Color.black);
+				g.fillRect((int)x, (int)y, 32, 32);
+				break;
+			}
+			
+			
 		}
 		if(id==ObjectId.wall){
 			g.setColor(Color.gray);

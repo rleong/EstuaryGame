@@ -53,11 +53,13 @@ public class Tree extends GameObject {
 			g.fillRect((int)x, (int)y-96, 32, 32);
 			g.setColor(Color.darkGray);
 			g.fillRect((int)x, (int)y-64, 32, 96);
+			break;
 		case 1:
 			g.setColor(Color.blue);
 			g.fillRect((int)x, (int)y-96, 32, 32);
 			g.setColor(Color.darkGray);
 			g.fillRect((int)x, (int)y-64, 32, 96);
+			break;
 		}
 		
 		g.setColor(Color.red);

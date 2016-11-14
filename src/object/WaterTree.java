@@ -14,7 +14,7 @@ import window.Handler;
 public class WaterTree extends GameObject {
 	Dimension dm;
 	public boolean canAttack;
-	int hp;
+	public int hp;
 	int type;
 	Handler handler;
 	public WaterTree(double x, double y, ObjectId id, Dimension dm, Handler handler) {
@@ -35,9 +35,10 @@ public class WaterTree extends GameObject {
 			
 		canAttack=false;
 		drop();
+		
 	}
 	public void drop(){
-		handler.addObject(new Seed(x,y,ObjectId.seed, type));
+		handler.addObject(new Seed(x,y-64,ObjectId.seed, type));
 	}
 	
 
