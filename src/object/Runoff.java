@@ -87,7 +87,7 @@ public class Runoff extends GameObject {
 			if(temp.getId() == ObjectId.seaLevel){
 				
 				if(getBounds().intersects(temp.getBounds())){
-					System.out.println(1);
+					
 					if(active){
 						game.count+=1;
 						active=false;
